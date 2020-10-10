@@ -4,6 +4,7 @@ const { Router } = require("express");
 const noteData = require("../db/db.json");
 const router = Router();
 
+// Saves note to db.json
 const saveNotes = function () {
   fs.writeFileSync(
     path.resolve(__dirname, "../db/db.json"),
@@ -22,13 +23,14 @@ router.get("/notes", function (req, res) {
   );
 });
 
+//Saves note
 router.post("/notes", function (req, res) {
   noteData.push(req.body);
   saveNotes();
   res.status(201).json(true);
 });
 
-// Empty out the arrays of data
+// Deletes note
 router.delete("/notes/:id", function (req, res) {
   noteData.splice(req.params.id, 1);
   console.log(req.params.id);
